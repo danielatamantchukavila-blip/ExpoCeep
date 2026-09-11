@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block titulo %}Editar perfil — Foto Vibe{% endblock %}
+
+{% block conteudo %}
+    <div class="cartao-formulario">
+        <h1>Editar perfil</h1>
+
+        <form method="post" enctype="multipart/form-data" class="formulario">
+            <label for="foto_perfil">Foto de perfil (opcional)</label>
+            <input type="file" id="foto_perfil" name="foto_perfil" accept="image/png, image/jpeg, image/gif, image/webp">
+
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" rows="4" maxlength="200">{{ usuario.bio }}</textarea>
+
+            <button type="submit" class="botao-primario botao-largura-total">Salvar alterações</button>
+        </form>
+    </div>
+{% endblock %}

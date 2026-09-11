@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Foto Vibe — identidade visual
+   Paleta inspirada em uma sala escura de revelação: fundo quase-preto,
+   cartões em carvão e um acento âmbar que lembra a luz de segurança
+   (safelight) usada em laboratórios fotográficos.
+   ========================================================================== */
+
+:root {
+    --cor-fundo: #121113;
+    --cor-cartao: #1B1A1D;
+    --cor-borda: #2C2A2D;
+    --cor-texto: #EFEAE2;
+    --cor-texto-secundario: #948E85;
+    --cor-acento: #E8A33D;
+    --cor-acento-escuro: #C4801F;
+    --cor-realce: #4FA99B;
+    --cor-erro: #D8664F;
+
+    --fonte-titulo: "Fraunces", Georgia, serif;
+    --fonte-corpo: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --raio: 6px;
+    --largura-conteudo: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: var(--fonte-corpo);
+    line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--cor-acento); }
+
+h1, h2 {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    margin: 0 0 0.4em 0;
+}
+
+/* -------------------------------------------------------------------- */
+/* Cabeçalho                                                            */
+/* -------------------------------------------------------------------- */
+
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--largura-conteudo);
+    margin: 0 auto;
+    padding: 24px 20px;
+}
+
+.marca {
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.marca span { color: var(--cor-acento); }
+
+.navegacao { display: flex; align-items: center; gap: 20px; }
+
+.link-nav { font-size: 0.95rem; color: var(--cor-texto); }
+
+.link-publicar {
+    background: var(--cor-acento);
+    color: #1A1206;
+    padding: 8px 16px;
+    border-radius: var(--raio);
+    font-weight: 600;
+}
+.link-publicar:hover { background: var(--cor-acento-escuro); color: #1A1206; }
+
+.link-discreto { color: var(--cor-texto-secundario); font-size: 0.85rem; }
+
+/* -------------------------------------------------------------------- */
+/* Layout geral                                                         */
+/* -------------------------------------------------------------------- */
+
+.conteudo {
+    max-width: var(--largura-conteudo);
+    margin: 0 auto;
+    padding: 12px 20px 60px;
+    min-height: 60vh;
+}
+
+.rodape {
+    text-align: center;
+    color: var(--cor-texto-secundario);
+    font-size: 0.85rem;
+    padding: 30px 20px;
+    border-top: 1px solid var(--cor-borda);
+}
+
+/* -------------------------------------------------------------------- */
+/* Mensagens flash                                                      */
+/* -------------------------------------------------------------------- */
+
+.caixa-mensagens { margin-bottom: 20px; }
+
+.mensagem {
+    padding: 12px 16px;
+    border-radius: var(--raio);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--cor-borda);
+}
+
+.mensagem--sucesso { border-color: var(--cor-realce); color: var(--cor-realce); }
+.mensagem--erro { border-color: var(--cor-erro); color: var(--cor-erro); }
+
+/* -------------------------------------------------------------------- */
+/* Grade do feed — mural de fotos                                       */
+/* -------------------------------------------------------------------- */
+
+.grade-fotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.cartao-foto {
+    background: var(--cor-cartao);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartao-foto__link-imagem { display: block; aspect-ratio: 4 / 5; overflow: hidden; }
+
+.cartao-foto__link-imagem img,
+.post-detalhe__imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cartao-foto__corpo { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+
+.cartao-foto__cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.cartao-foto__autor { font-weight: 600; }
+.cartao-foto__data { font-size: 0.78rem; color: var(--cor-texto-secundario); }
+.cartao-foto__legenda { margin: 0; color: var(--cor-texto); font-size: 0.95rem; }
+
+.cartao-foto__acoes {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.botao-curtir {
+    background: none;
+    border: none;
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0;
+}
+.botao-curtir--ativo { color: var(--cor-acento); }
+.botao-curtir:hover { color: var(--cor-acento); }
+
+.link-comentarios { font-size: 0.85rem; color: var(--cor-texto-secundario); }
+
+/* -------------------------------------------------------------------- */
+/* Estado vazio                                                         */
+/* -------------------------------------------------------------------- */
+
+.estado-vazio {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--cor-texto-secundario);
+}
+.estado-vazio h2 { color: var(--cor-texto); }
+
+/* -------------------------------------------------------------------- */
+/* Formulários                                                          */
+/* -------------------------------------------------------------------- */
+
+.cartao-formulario {
+    max-width: 420px;
+    margin: 40px auto;
+    background: var(--cor-cartao);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    padding: 32px;
+}
+
+.subtitulo-formulario { color: var(--cor-texto-secundario); margin-top: 0; }
+
+.formulario { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
+
+.formulario label {
+    font-size: 0.82rem;
+    color: var(--cor-texto-secundario);
+    margin-top: 10px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="file"],
+.formulario textarea {
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    color: var(--cor-texto);
+    padding: 10px 12px;
+    font-family: var(--fonte-corpo);
+    font-size: 0.95rem;
+}
+
+.formulario input:focus,
+.formulario textarea:focus {
+    outline: none;
+    border-color: var(--cor-acento);
+}
+
+.formulario textarea { resize: vertical; }
+
+.botao-primario {
+    display: inline-block;
+    text-align: center;
+    background: var(--cor-acento);
+    color: #1A1206;
+    border: none;
+    border-radius: var(--raio);
+    padding: 10px 18px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+.botao-primario:hover { background: var(--cor-acento-escuro); color: #1A1206; }
+
+.botao-largura-total { width: 100%; margin-top: 16px; }
+
+.botao-secundario {
+    display: inline-block;
+    background: none;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    border-radius: var(--raio);
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+.botao-secundario:hover { border-color: var(--cor-acento); color: var(--cor-acento); }
+
+.botao-sem-estilo { background: none; border: none; cursor: pointer; padding: 0; font: inherit; }
+
+.texto-secundario { color: var(--cor-texto-secundario); font-size: 0.9rem; }
+
+/* -------------------------------------------------------------------- */
+/* Página de post                                                       */
+/* -------------------------------------------------------------------- */
+
+.post-detalhe {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    margin-top: 20px;
+}
+
+.post-detalhe__imagem { border-radius: var(--raio); overflow: hidden; background: var(--cor-cartao); }
+
+.post-detalhe__lateral { display: flex; flex-direction: column; }
+
+.divisor { border: none; border-top: 1px solid var(--cor-borda); margin: 16px 0; }
+
+.lista-comentarios { display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; }
+
+.comentario { font-size: 0.9rem; }
+.comentario__autor { font-weight: 600; margin-right: 6px; }
+.comentario__texto { color: var(--cor-texto); }
+
+.formulario-comentario { display: flex; gap: 8px; margin-top: 16px; }
+.formulario-comentario input {
+    flex: 1;
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    padding: 9px 12px;
+    color: var(--cor-texto);
+    font-family: var(--fonte-corpo);
+}
+.formulario-comentario input:focus { outline: none; border-color: var(--cor-acento); }
+
+/* -------------------------------------------------------------------- */
+/* Perfil                                                                */
+/* -------------------------------------------------------------------- */
+
+.cabecalho-perfil {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.cabecalho-perfil__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--cor-cartao);
+    border: 2px solid var(--cor-acento);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fonte-titulo);
+    font-size: 2rem;
+    color: var(--cor-acento);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.cabecalho-perfil__avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.cabecalho-perfil__bio { margin: 6px 0; }
+
+.grade-perfil {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+    margin-top: 24px;
+}
+
+.grade-perfil__item { aspect-ratio: 1 / 1; overflow: hidden; display: block; }
+.grade-perfil__item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.15s; }
+.grade-perfil__item:hover img { opacity: 0.85; }
+
+/* -------------------------------------------------------------------- */
+/* Responsivo                                                           */
+/* -------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+    .post-detalhe { grid-template-columns: 1fr; }
+    .cabecalho { flex-direction: column; gap: 14px; }
+    .cabecalho-perfil { flex-direction: column; text-align: center; }
+}

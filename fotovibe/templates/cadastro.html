@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Criar conta — Foto Vibe{% endblock %}
+
+{% block conteudo %}
+    <div class="cartao-formulario">
+        <h1>Criar conta</h1>
+        <p class="subtitulo-formulario">Comece a compartilhar suas fotos.</p>
+
+        <form method="post" class="formulario">
+            <label for="nome_usuario">Nome de usuário</label>
+            <input type="text" id="nome_usuario" name="nome_usuario" required autofocus>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" minlength="6" required>
+
+            <label for="confirmar_senha">Confirmar senha</label>
+            <input type="password" id="confirmar_senha" name="confirmar_senha" minlength="6" required>
+
+            <button type="submit" class="botao-primario botao-largura-total">Criar conta</button>
+        </form>
+
+        <p class="texto-secundario">
+            Já tem conta? <a href="{{ url_for('login') }}">Entrar</a>
+        </p>
+    </div>
+{% endblock %}

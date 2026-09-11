@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Foto Vibe{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <a href="{{ url_for('feed') }}" class="marca">Foto<span>Vibe</span></a>
+
+        <nav class="navegacao">
+            {% if usuario_logado %}
+                <a href="{{ url_for('publicar') }}" class="link-nav link-publicar">+ Publicar</a>
+                <a href="{{ url_for('perfil', nome_usuario=usuario_logado.nome_usuario) }}" class="link-nav">
+                    {{ usuario_logado.nome_usuario }}
+                </a>
+                <a href="{{ url_for('sair') }}" class="link-nav link-discreto">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="link-nav">Entrar</a>
+                <a href="{{ url_for('cadastro') }}" class="link-nav link-publicar">Criar conta</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="conteudo">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                <div class="caixa-mensagens">
+                    {% for categoria, texto in mensagens %}
+                        <div class="mensagem mensagem--{{ categoria }}">{{ texto }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="rodape">
+        <p>Foto Vibe — feito para quem gosta de registrar o momento.</p>
+    </footer>
+
+</body>
+</html>

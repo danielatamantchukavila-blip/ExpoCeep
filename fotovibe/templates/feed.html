@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block titulo %}Foto Vibe — Feed{% endblock %}
+
+{% block conteudo %}
+
+    {% if posts %}
+        <div class="grade-fotos">
+            {% for post in posts %}
+                <article class="cartao-foto">
+                    <a href="{{ url_for('ver_post', post_id=post.id) }}" class="cartao-foto__link-imagem">
+                        <img src="{{ url_for('arquivo_upload', nome_arquivo=post.imagem) }}" alt="Foto de {{ post.nome_usuario }}">
+                    </a>
+
+                    <div class="cartao-foto__corpo">
+                        <div class="cartao-foto__cabecalho">
+                            <a href="{{ url_for('perfil', nome_usuario=post.nome_usuario) }}" class="cartao-foto__autor">
+                                {{ post.nome_usuario }}
+                            </a>
+                            <span class="cartao-foto__data">{{ post.criado_em[:10] }}</span>
+                        </div>
+
+                        {% if post.legenda %}
+                            <p class="cartao-foto__legenda">{{ post.legenda }}</p>
+                        {% endif %}
+
+                        <div class="cartao-foto__acoes">
+                            {% if usuario_logado %}
+                                <form action="{{ url_for('curtir', post_id=post.id) }}" method="post">
+                                    <input type="hidden" name="proximo" value="{{ url_for('feed') }}">
+                                    <button type="submit" class="botao-curtir {{ 'botao-curtir--ativo' if post.curtido_por_mim }}">
+                                        {{ '♥' if post.curtido_por_mim else '♡' }} {{ post.total_curtidas }}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <span class="botao-curtir">♡ {{ post.total_curtidas }}</span>
+                            {% endif %}
+                            <a href="{{ url_for('ver_post', post_id=post.id) }}" class="link-comentarios">
+                                {{ post.total_comentarios }} comentário{{ 's' if post.total_comentarios != 1 else '' }}
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="estado-vazio">
+            <h2>O mural ainda está em branco.</h2>
+            <p>Seja a primeira pessoa a publicar uma foto no Foto Vibe.</p>
+            {% if usuario_logado %}
+                <a href="{{ url_for('publicar') }}" class="botao-primario">Publicar minha primeira foto</a>
+            {% else %}
+                <a href="{{ url_for('cadastro') }}" class="botao-primario">Criar conta</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endblock %}

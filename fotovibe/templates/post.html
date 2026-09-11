@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block titulo %}Foto de {{ post.nome_usuario }} — Foto Vibe{% endblock %}
+
+{% block conteudo %}
+    <article class="post-detalhe">
+        <div class="post-detalhe__imagem">
+            <img src="{{ url_for('arquivo_upload', nome_arquivo=post.imagem) }}" alt="Foto de {{ post.nome_usuario }}">
+        </div>
+
+        <div class="post-detalhe__lateral">
+            <div class="post-detalhe__cabecalho">
+                <a href="{{ url_for('perfil', nome_usuario=post.nome_usuario) }}" class="cartao-foto__autor">
+                    {{ post.nome_usuario }}
+                </a>
+                <span class="cartao-foto__data">{{ post.criado_em[:10] }}</span>
+            </div>
+
+            {% if post.legenda %}
+                <p class="cartao-foto__legenda">{{ post.legenda }}</p>
+            {% endif %}
+
+            <div class="cartao-foto__acoes">
+                {% if usuario_logado %}
+                    <form action="{{ url_for('curtir', post_id=post.id) }}" method="post">
+                        <input type="hidden" name="proximo" value="{{ url_for('ver_post', post_id=post.id) }}">
+                        <button type="submit" class="botao-curtir {{ 'botao-curtir--ativo' if post.curtido_por_mim }}">
+                            {{ '♥' if post.curtido_por_mim else '♡' }} {{ post.total_curtidas }}
+                        </button>
+                    </form>
+                {% else %}
+                    <span class="botao-curtir">♡ {{ post.total_curtidas }}</span>
+                {% endif %}
+
+                {% if usuario_logado and usuario_logado.id == post.usuario_id %}
+                    <form action="{{ url_for('excluir_post', post_id=post.id) }}" method="post"
+                          onsubmit="return confirm('Excluir esta foto?');">
+                        <button type="submit" class="link-discreto botao-sem-estilo">Excluir</button>
+                    </form>
+                {% endif %}
+            </div>
+
+            <hr class="divisor">
+
+            <div class="lista-comentarios">
+                {% for comentario in comentarios %}
+                    <div class="comentario">
+                        <a href="{{ url_for('perfil', nome_usuario=comentario.nome_usuario) }}" class="comentario__autor">
+                            {{ comentario.nome_usuario }}
+                        </a>
+                        <span class="comentario__texto">{{ comentario.texto }}</span>
+                    </div>
+                {% else %}
+                    <p class="texto-secundario">Nenhum comentário ainda. Seja o primeiro a comentar.</p>
+                {% endfor %}
+            </div>
+
+            {% if usuario_logado %}
+                <form action="{{ url_for('comentar', post_id=post.id) }}" method="post" class="formulario-comentario">
+                    <input type="text" name="texto" placeholder="Escreva um comentário..." required maxlength="300">
+                    <button type="submit" class="botao-secundario">Enviar</button>
+                </form>
+            {% else %}
+                <p class="texto-secundario"><a href="{{ url_for('login') }}">Entre</a> para comentar.</p>
+            {% endif %}
+        </div>
+    </article>
+{% endblock %}

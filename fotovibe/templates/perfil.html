@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}{{ usuario.nome_usuario }} — Foto Vibe{% endblock %}
+
+{% block conteudo %}
+    <section class="cabecalho-perfil">
+        <div class="cabecalho-perfil__avatar">
+            {% if usuario.foto_perfil %}
+                <img src="{{ url_for('arquivo_upload', nome_arquivo=usuario.foto_perfil) }}" alt="Foto de perfil de {{ usuario.nome_usuario }}">
+            {% else %}
+                <span>{{ usuario.nome_usuario[0] | upper }}</span>
+            {% endif %}
+        </div>
+
+        <div class="cabecalho-perfil__info">
+            <h1>{{ usuario.nome_usuario }}</h1>
+            {% if usuario.bio %}
+                <p class="cabecalho-perfil__bio">{{ usuario.bio }}</p>
+            {% endif %}
+            <p class="texto-secundario">{{ posts | length }} publicação{{ 'ões' if posts | length != 1 else '' }}</p>
+
+            {% if usuario_logado and usuario_logado.id == usuario.id %}
+                <a href="{{ url_for('editar_perfil') }}" class="botao-secundario">Editar perfil</a>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if posts %}
+        <div class="grade-perfil">
+            {% for post in posts %}
+                <a href="{{ url_for('ver_post', post_id=post.id) }}" class="grade-perfil__item">
+                    <img src="{{ url_for('arquivo_upload', nome_arquivo=post.imagem) }}" alt="Foto de {{ usuario.nome_usuario }}">
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="estado-vazio">
+            <p>Nenhuma foto publicada ainda.</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}Publicar foto — Foto Vibe{% endblock %}
+
+{% block conteudo %}
+    <div class="cartao-formulario">
+        <h1>Nova publicação</h1>
+        <p class="subtitulo-formulario">Escolha uma foto e conte a história dela.</p>
+
+        <form method="post" enctype="multipart/form-data" class="formulario">
+            <label for="imagem">Foto</label>
+            <input type="file" id="imagem" name="imagem" accept="image/png, image/jpeg, image/gif, image/webp" required>
+
+            <label for="legenda">Legenda (opcional)</label>
+            <textarea id="legenda" name="legenda" rows="3" placeholder="Onde foi essa foto?"></textarea>
+
+            <button type="submit" class="botao-primario botao-largura-total">Publicar</button>
+        </form>
+    </div>
+{% endblock %}
