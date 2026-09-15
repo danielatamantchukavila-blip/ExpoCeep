@@ -14,7 +14,7 @@ from functools import wraps
 
 from flask import (
     Flask, render_template, request, redirect,
-    url_for, session, flash, abort, send_from_directory
+    url_for, session, flash, abort, send_from_directory, jsonify
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -253,6 +253,15 @@ def editar_perfil():
 @app.route("/static/uploads/<nome_arquivo>")
 def arquivo_upload(nome_arquivo):
     return send_from_directory(PASTA_UPLOADS, nome_arquivo)
+
+
+# --------------------------------------------------------------------------
+# Rota de teste (Etapa 1 - CEEP)
+# --------------------------------------------------------------------------
+
+@app.route("/api/status")
+def status():
+    return jsonify({"status": "ok", "app": "Foto Vibe"})
 
 
 # --------------------------------------------------------------------------
