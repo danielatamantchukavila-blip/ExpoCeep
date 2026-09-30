@@ -1,20 +1,22 @@
 /* ==========================================================================
    Foto Vibe — identidade visual
-   Paleta inspirada em uma sala escura de revelação: fundo quase-preto,
-   cartões em carvão e um acento âmbar que lembra a luz de segurança
-   (safelight) usada em laboratórios fotográficos.
+   Paleta "galeria noturna": fundo azul-petróleo bem escuro (as fotos se
+   destacam sem competir com a interface), cartões em azul-carvão e um
+   acento índigo/lavanda, discreto e moderno, comum em apps de fotografia.
+   Para trocar o tema inteiro, basta mudar as variáveis do bloco :root.
    ========================================================================== */
 
 :root {
-    --cor-fundo: #121113;
-    --cor-cartao: #1B1A1D;
-    --cor-borda: #2C2A2D;
-    --cor-texto: #EFEAE2;
-    --cor-texto-secundario: #948E85;
-    --cor-acento: #E8A33D;
-    --cor-acento-escuro: #C4801F;
-    --cor-realce: #4FA99B;
-    --cor-erro: #D8664F;
+    --cor-fundo: #0F1117;
+    --cor-cartao: #171A23;
+    --cor-borda: #262B38;
+    --cor-texto: #E8EAF0;
+    --cor-texto-secundario: #8A93A6;
+    --cor-acento: #8B9BFF;
+    --cor-acento-hover: #A9B5FF;
+    --cor-sobre-acento: #0B0E1A;
+    --cor-realce: #5CC8B5;
+    --cor-erro: #E5707E;
 
     --fonte-titulo: "Fraunces", Georgia, serif;
     --fonte-corpo: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -70,12 +72,12 @@ h1, h2 {
 
 .link-publicar {
     background: var(--cor-acento);
-    color: #1A1206;
+    color: var(--cor-sobre-acento);
     padding: 8px 16px;
     border-radius: var(--raio);
     font-weight: 600;
 }
-.link-publicar:hover { background: var(--cor-acento-escuro); color: #1A1206; }
+.link-publicar:hover { background: var(--cor-acento-hover); color: var(--cor-sobre-acento); }
 
 .link-discreto { color: var(--cor-texto-secundario); font-size: 0.85rem; }
 
@@ -237,7 +239,7 @@ h1, h2 {
     display: inline-block;
     text-align: center;
     background: var(--cor-acento);
-    color: #1A1206;
+    color: var(--cor-sobre-acento);
     border: none;
     border-radius: var(--raio);
     padding: 10px 18px;
@@ -245,7 +247,7 @@ h1, h2 {
     font-size: 0.95rem;
     cursor: pointer;
 }
-.botao-primario:hover { background: var(--cor-acento-escuro); color: #1A1206; }
+.botao-primario:hover { background: var(--cor-acento-hover); color: var(--cor-sobre-acento); }
 
 .botao-largura-total { width: 100%; margin-top: 16px; }
 

@@ -16,6 +16,7 @@ from flask import (
     Flask, render_template, request, redirect,
     url_for, session, flash, abort, send_from_directory, jsonify
 )
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -26,6 +27,7 @@ import database as db
 # --------------------------------------------------------------------------
 
 app = Flask(__name__)
+CORS(app)  # Etapa 3: libera chamadas fetch() vindas de outra origem (ex.: Live Server na porta 5500)
 app.secret_key = "troque-esta-chave-por-uma-bem-aleatoria-antes-de-publicar"
 
 PASTA_UPLOADS = os.path.join(app.root_path, "static", "uploads")
@@ -262,6 +264,54 @@ def arquivo_upload(nome_arquivo):
 @app.route("/api/status")
 def status():
     return jsonify({"status": "ok", "app": "Foto Vibe"})
+
+
+# --------------------------------------------------------------------------
+# API JSON (Etapa 3 - integração Front-End + Back-End via fetch)
+# --------------------------------------------------------------------------
+
+@app.route("/api/usuarios", methods=["GET"])
+def api_listar_usuarios():
+    """GET: devolve a lista de usuários em JSON (sem e-mail e sem senha)."""
+    return jsonify(db.listar_usuarios()), 200
+
+
+@app.route("/api/usuarios", methods=["POST"])
+def api_cadastrar_usuario():
+    """POST: recebe um JSON, valida e grava um novo usuário no SQLite."""
+    dados = request.get_json(silent=True)
+    if not dados:
+        return jsonify({"erro": "Envie um JSON válido."}), 400
+
+    nome_usuario = str(dados.get("nome_usuario", "")).strip()
+    email = str(dados.get("email", "")).strip().lower()
+    senha = str(dados.get("senha", ""))
+    confirmar_senha = str(dados.get("confirmar_senha", ""))
+
+    if not nome_usuario or not email or not senha:
+        return jsonify({"erro": "Preencha todos os campos."}), 400
+    if len(senha) < 6:
+        return jsonify({"erro": "A senha precisa ter pelo menos 6 caracteres."}), 400
+    if senha != confirmar_senha:
+        return jsonify({"erro": "As senhas não coincidem."}), 400
+    if db.buscar_usuario_por_nome(nome_usuario):
+        return jsonify({"erro": "Esse nome de usuário já está em uso."}), 409
+
+    try:
+        usuario_id = db.criar_usuario(nome_usuario, email, generate_password_hash(senha))
+    except Exception:
+        return jsonify({"erro": "Esse e-mail já está cadastrado."}), 409
+
+    return jsonify({"id": usuario_id, "mensagem": "Usuário cadastrado com sucesso!"}), 201
+
+
+@app.route("/api/feed", methods=["GET"])
+def api_feed():
+    """GET: devolve os posts mais recentes em JSON, com a URL completa da imagem."""
+    posts = db.listar_feed()
+    for post in posts:
+        post["imagem_url"] = url_for("arquivo_upload", nome_arquivo=post["imagem"], _external=True)
+    return jsonify(posts), 200
 
 
 # --------------------------------------------------------------------------

@@ -14,7 +14,8 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime
 
-CAMINHO_BANCO = "fotovibe.db"
+import os
+CAMINHO_BANCO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fotovibe.db")
 
 
 # --------------------------------------------------------------------------
@@ -140,6 +141,20 @@ def buscar_usuario_por_nome(nome_usuario):
             "SELECT * FROM usuarios WHERE nome_usuario = ?", (nome_usuario,)
         ).fetchone()
         return dict(linha) if linha else None
+
+
+def listar_usuarios():
+    """Lista pública de usuários. Nunca inclui e-mail nem senha_hash."""
+    with obter_conexao() as con:
+        linhas = con.execute(
+            """
+            SELECT u.id, u.nome_usuario, u.bio, u.criado_em,
+                (SELECT COUNT(*) FROM posts p WHERE p.usuario_id = u.id) AS total_posts
+            FROM usuarios u
+            ORDER BY u.id DESC
+            """
+        ).fetchall()
+        return [dict(linha) for linha in linhas]
 
 
 def atualizar_perfil(usuario_id, bio, foto_perfil=None):
