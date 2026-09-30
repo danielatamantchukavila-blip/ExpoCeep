@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foto Vibe - Etapa 3</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 24px auto; padding: 0 16px; }
+    form { display: grid; gap: 8px; max-width: 360px; }
+    input, button { padding: 8px; font-size: 1rem; }
+    #mensagem { margin-top: 8px; font-weight: bold; }
+    .ok { color: #1b7f3b; }
+    .erro { color: #c0392b; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; }
+    .card strong { display: block; margin-bottom: 8px; }
+    .card img { display: block; max-width: 100%; max-height: 320px; border-radius: 6px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Foto Vibe</h1>
+
+  <h2>Cadastrar usuário (POST)</h2>
+  <form id="form-cadastro">
+    <input type="text" id="nome_usuario" placeholder="Nome de usuário" required>
+    <input type="email" id="email" placeholder="E-mail" required>
+    <input type="password" id="senha" placeholder="Senha (mín. 6 caracteres)" required>
+    <input type="password" id="confirmar_senha" placeholder="Confirmar senha" required>
+    <button type="submit">Cadastrar</button>
+  </form>
+  <p id="mensagem"></p>
+
+  <h2>Usuários cadastrados (GET)</h2>
+  <ul id="lista-usuarios"></ul>
+
+  <h2>Feed de fotos (GET)</h2>
+  <div id="lista-feed"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
