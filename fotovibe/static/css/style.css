@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Foto Vibe — identidade visual
+   Foto na Tela — identidade visual
    Paleta "galeria noturna": fundo azul-petróleo bem escuro (as fotos se
    destacam sem competir com a interface), cartões em azul-carvão e um
    acento índigo/lavanda, discreto e moderno, comum em apps de fotografia.
@@ -26,6 +26,9 @@
 }
 
 * { box-sizing: border-box; }
+
+/* Imagens nunca estouram a largura da tela (importante no celular) */
+img { max-width: 100%; height: auto; }
 
 body {
     margin: 0;
@@ -213,6 +216,8 @@ h1, h2 {
     margin-top: 10px;
 }
 
+/* font-size de 1rem (16px) nos campos: abaixo disso o iPhone dá zoom
+   automático na tela quando a pessoa toca no campo. */
 .formulario input[type="text"],
 .formulario input[type="email"],
 .formulario input[type="password"],
@@ -224,7 +229,7 @@ h1, h2 {
     color: var(--cor-texto);
     padding: 10px 12px;
     font-family: var(--fonte-corpo);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .formulario input:focus,
@@ -299,6 +304,7 @@ h1, h2 {
     padding: 9px 12px;
     color: var(--cor-texto);
     font-family: var(--fonte-corpo);
+    font-size: 1rem;
 }
 .formulario-comentario input:focus { outline: none; border-color: var(--cor-acento); }
 
@@ -346,10 +352,71 @@ h1, h2 {
 
 /* -------------------------------------------------------------------- */
 /* Responsivo                                                           */
+/* Regras de celular e tablet ficam por último para sobrescrever as     */
+/* regras de desktop acima.                                             */
 /* -------------------------------------------------------------------- */
 
-@media (max-width: 720px) {
-    .post-detalhe { grid-template-columns: 1fr; }
-    .cabecalho { flex-direction: column; gap: 14px; }
-    .cabecalho-perfil { flex-direction: column; text-align: center; }
+/* Celular (até 768px) */
+@media (max-width: 768px) {
+    .cabecalho {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+    .navegacao {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .conteudo {
+        padding: 12px 16px 40px;
+    }
+
+    /* feed: 1 foto por linha */
+    .grade-fotos {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* perfil: galeria em 3 colunas, estilo Instagram */
+    .grade-perfil {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+
+    /* cabeçalho do perfil: avatar em cima, texto embaixo */
+    .cabecalho-perfil {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    /* página do post: imagem em cima, comentários embaixo */
+    .post-detalhe {
+        grid-template-columns: 1fr;
+    }
+
+    /* formulários ocupam a largura toda */
+    .cartao-formulario {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    /* botões e links fáceis de tocar com o dedo */
+    .botao-primario,
+    .botao-secundario,
+    .botao-curtir,
+    .link-nav {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablet (769px a 1024px): feed em 2 colunas */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grade-fotos {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

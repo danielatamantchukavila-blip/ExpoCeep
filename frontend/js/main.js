@@ -1,4 +1,4 @@
-// Foto Vibe - Etapa 3: integração Front-End + Back-End via Fetch API
+// Foto na Tela - Etapa 3: integração Front-End + Back-End via Fetch API
 // Se "localhost" não conectar no seu computador, troque por http://127.0.0.1:5000
 const API = "http://localhost:5000";
 

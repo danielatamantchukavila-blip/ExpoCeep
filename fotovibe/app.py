@@ -1,7 +1,7 @@
 """
 app.py
 ------
-Aplicação Flask do Foto Vibe.
+Aplicação Flask do Foto na Tela.
 
 Toda a lógica de rotas, sessão de usuário e upload de arquivos vive aqui.
 Todo o acesso a dados vive em database.py — este arquivo nunca executa SQL
@@ -111,7 +111,7 @@ def cadastro():
                 flash("Esse e-mail já está cadastrado.", "erro")
             else:
                 session["usuario_id"] = usuario_id
-                flash("Conta criada com sucesso! Bem-vindo(a) ao Foto Vibe.", "sucesso")
+                flash("Conta criada com sucesso! Bem-vindo(a) ao Foto na Tela.", "sucesso")
                 return redirect(url_for("feed"))
 
     return render_template("cadastro.html")
@@ -263,7 +263,7 @@ def arquivo_upload(nome_arquivo):
 
 @app.route("/api/status")
 def status():
-    return jsonify({"status": "ok", "app": "Foto Vibe"})
+    return jsonify({"status": "ok", "app": "Foto na Tela"})
 
 
 # --------------------------------------------------------------------------
@@ -319,4 +319,4 @@ def api_feed():
 # --------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

@@ -1,7 +1,7 @@
 """
 database.py
 ------------
-Camada de acesso a dados do Foto Vibe.
+Camada de acesso a dados do Foto na Tela.
 
 Este módulo é o único responsável por falar com o banco SQLite.
 Nenhum outro arquivo do projeto deve abrir uma conexão sqlite3 diretamente:

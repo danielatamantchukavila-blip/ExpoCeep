@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo %}Foto Vibe{% endblock %}</title>
+    <title>{% block titulo %}Foto na Tela{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -11,7 +11,7 @@
 <body>
 
     <header class="cabecalho">
-        <a href="{{ url_for('feed') }}" class="marca">Foto<span>Vibe</span></a>
+        <a href="{{ url_for('feed') }}" class="marca">Foto<span> na Tela</span></a>
 
         <nav class="navegacao">
             {% if usuario_logado %}
@@ -42,7 +42,7 @@
     </main>
 
     <footer class="rodape">
-        <p>Foto Vibe — feito para quem gosta de registrar o momento.</p>
+        <p>Foto na Tela — feito para quem gosta de registrar o momento.</p>
     </footer>
 
 </body>
